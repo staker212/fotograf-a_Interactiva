@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Fotografía Interactiva</title>
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    /* --- Estilos generales --- */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('imagen_oficial.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    #login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #login-box, #registro-box {
+      background: rgba(255,255,255,0.9);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+
+    /* --- Barra de navegación --- */
+    nav ul.nav-fotos {
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+      background: rgba(0,0,0,0.7);
+      padding: 10px 0;
+      margin: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav ul.nav-fotos li {
+      cursor: pointer;
+      color: white;
+      text-align: center;
+      font-size: 0.9em;
+    }
+    nav ul.nav-fotos li img {
+      display: block;
+      margin: 0 auto 5px;
+      width: 30px;
+    }
+
+    /* --- Secciones --- */
+    .seccion {
+      padding: 20px;
+      display: none;
+      background: rgba(255,255,255,0.85);
+      margin: 20px;
+      border-radius: 10px;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: rgba(0,0,0,0.7);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: relative;
+    }
+
+    /* --- Contenido oculto hasta login --- */
+    #contenido {
+      display: none;
+    }
+
+    /* --- Previews y galería --- */
+    #preview img, #galeria-contenido img {
+      width: 200px;
+      margin: 10px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN / REGISTRO -->
+  <div id="login-container">
+    <!-- LOGIN -->
+    <div id="login-box">
+      <h2>Iniciar Sesión</h2>
+      <input type="text" id="usuario" placeholder="Usuario" required><br><br>
+      <input type="password" id="contraseña" placeholder="Contraseña" required><br><br>
+      <button id="btnEntrar">Entrar</button>
+      <p id="mensaje" style="color:red; font-size:0.9em;"></p>
+      <p>¿No tienes una cuenta? <a href="#" id="mostrar-registro">Regístrate aquí</a></p>
+    </div>
+
+    <!-- REGISTRO -->
+    <div id="registro-box" style="display:none;">
+      <h2>Crear Cuenta</h2>
+      <input type="text" id="nombre" placeholder="Nombre completo" required><br><br>
+      <input type="email" id="correo" placeholder="Correo electrónico" required><br><br>
+      <input type="text" id="nuevoUsuario" placeholder="Nombre de usuario" required><br><br>
+      <input type="password" id="nuevaContraseña" placeholder="Contraseña" required><br><br>
+      <button id="btnRegistrar">Registrarse</button>
+      <p id="mensajeRegistro" style="color:green; font-size:0.9em;"></p>
+      <p>¿Ya tienes cuenta? <a href="#" id="mostrar-login">Inicia sesión</a></p>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div id="contenido">
+
+    <!-- Barra de navegación -->
+    <nav>
+      <ul class="nav-fotos">
+        <li onclick="mostrarSeccion('tutorial')">
+          <img src="https://img.icons8.com/fluency/48/000000/home.png" alt="Inicio"><span>Inicio</span>
+        </li>
+        <li onclick="mostrarSeccion('descubrir')">
+          <img src="https://img.icons8.com/fluency/48/000000/compass.png" alt="Descubrir"><span>Descubrir</span>
+        </li>
+        <li onclick="mostrarSeccion('subir')">
+          <img src="https://img.icons8.com/fluency/48/000000/upload.png" alt="Subir Fotos"><span>Subir</span>
+        </li>
+        <li onclick="mostrarSeccion('galeria')">
+          <img src="https://img.icons8.com/fluency/48/000000/picture.png" alt="Galería"><span>Galería</span>
+        </li>
+        <li onclick="cerrarSesion()">
+          <img src="https://img.icons8.com/fluency/48/000000/exit.png" alt="Cerrar Sesión"><span>Cerrar</span>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Sección Tutorial -->
+<section id="tutorial" class="seccion">
+  <h1>Introducción a la Fotografía</h1>
+  <p>Aprenderás conceptos básicos para capturar momentos increíbles.</p>
+
+  <div class="imagenes-tutorial">
+    <div>
+      <h2>¿Qué es la Fotografía?</h2>
+      <img src="que es.webp" alt="Cámara fotográfica">
+      <p>La fotografía es el arte de capturar imágenes con luz.</p>
+    </div>
+
+    <div>
+      <h2>Tipos de Cámara</h2>
+      <img src="camara-digital.jpg" alt="Tipos de cámaras">
+      <p>Hay réflex, mirrorless, compactas y de celular.</p>
+    </div>
+
+    <div>
+      <h2>La Regla de los Tercios</h2>
+      <img src="tercio.jpg" alt="Guía de composición">
+      <p>Técnica de composición que mejora el equilibrio visual de las fotos.</p>
+    </div>
+
+    <div>
+      <h2>Uso de la Luz Natural</h2>
+      <img src="natural.jpg" alt="Fotografía con luz natural">
+      <p>La luz natural aporta una atmósfera cálida y realza tus fotos.</p>
+    </div>
+
+    <div>
+      <h2>Consejos para Principiantes</h2>
+      <img src="principiante.jpg" alt="Fotógrafo principiante">
+      <p>Practica regularmente, analiza tus fotos y aprende con pasión.</p>
+    </div>
+  </div>
+  <script>
+  // Animación al hacer click en imágenes del tutorial
+  document.querySelectorAll('#tutorial .imagenes-tutorial img').forEach(img => {
+    img.addEventListener('click', () => {
+      img.classList.toggle('clicked');
+    });
+  });
+</script>
+
+</section>
+
+
+    <!-- Subir Fotos -->
+    <section id="subir" class="seccion">
+      <h2>Subir tus fotografías</h2>
+      <input type="file" id="archivo" accept="image/*,video/*">
+      <button id="btnSubir">Subir y Mostrar</button>
+      <div id="preview"></div>
+    </section>
+
+    <!-- Galería -->
+    <section id="galeria" class="seccion">
+      <h2>Galería de Fotos</h2>
+      <div id="galeria-contenido"></div>
+    </section>
+
+    <!-- Descubrir -->
+    <section id="descubrir" class="seccion">
+      <h2>Descubre el mundo de la fotografía</h2>
+      <ul>
+        <li>📷 Fotografía de Paisajes</li>
+        <li>👥 Retratos</li>
+        <li>🌃 Fotografía Nocturna</li>
+        <li>🏙️ Fotografía Urbana</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Fotografía Interactiva</p>
+  </footer>
+
+  <script>
+    // --- LOGIN ---
+    async function iniciarSesion() {
+      const usuario = document.getElementById('usuario').value.trim();
+      const contraseña = document.getElementById('contraseña').value.trim();
+      const mensaje = document.getElementById('mensaje');
+
+      if(!usuario || !contraseña){
+        mensaje.textContent = "⚠️ Completa todos los campos.";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("usuario", usuario);
+      formData.append("contraseña", contraseña);
+
+      try {
+        const respuesta = await fetch("login.php", { method:"POST", body: formData });
+        const resultado = await respuesta.json();
+
+        if(resultado.status === "success"){
+          document.getElementById('login-container').style.display = 'none';
+          document.getElementById('contenido').style.display = 'block';
+          mostrarSeccion('tutorial');
+          mensaje.textContent = "";
+        } else {
+          mensaje.textContent = "❌ " + resultado.mensaje;
+        }
+      } catch(error){
+        mensaje.textContent = "❌ Error en la conexión al servidor.";
+      }
+    }
+
+    // --- REGISTRO ---
+    async function registrarUsuario() {
+      const nombre = document.getElementById('nombre').value.trim();
+      const correo = document.getElementById('correo').value.trim();
+      const usuario = document.getElementById('nuevoUsuario').value.trim();
+      const contraseña = document.getElementById('nuevaContraseña').value.trim();
+      const mensajeRegistro = document.getElementById('mensajeRegistro');
+
+      if(!nombre || !correo || !usuario || !contraseña){
+        mensajeRegistro.style.color = "red";
+        mensajeRegistro.textContent = "⚠️ Completa todos los campos.";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("nombre", nombre);
+      formData.append("correo", correo);
+      formData.append("usuario", usuario);
+      formData.append("contraseña", contraseña);
+
+      try {
+        const respuesta = await fetch("registro.php", { method:"POST", body: formData });
+        const resultado = await respuesta.json();
+
+        if(resultado.status === "success"){
+          mensajeRegistro.style.color = "green";
+          mensajeRegistro.textContent = "✅ Registro exitoso. Ahora puedes iniciar sesión.";
+        } else {
+          mensajeRegistro.style.color = "red";
+          mensajeRegistro.textContent = "❌ " + resultado.mensaje;
+        }
+      } catch(error){
+        mensajeRegistro.style.color = "red";
+        mensajeRegistro.textContent = "❌ Error en la conexión al servidor.";
+      }
+    }
+
+    // --- BOTONES LOGIN/REGISTRO ---
+    document.getElementById('btnEntrar').addEventListener('click', iniciarSesion);
+    document.getElementById('btnRegistrar').addEventListener('click', registrarUsuario);
+    document.getElementById('mostrar-registro').addEventListener('click', () => {
+      document.getElementById('login-box').style.display = 'none';
+      document.getElementById('registro-box').style.display = 'block';
+    });
+    document.getElementById('mostrar-login').addEventListener('click', () => {
+      document.getElementById('registro-box').style.display = 'none';
+      document.getElementById('login-box').style.display = 'block';
+    });
+
+    // --- CERRAR SESIÓN ---
+    function cerrarSesion() {
+      document.getElementById('login-container').style.display = 'flex';
+      document.getElementById('contenido').style.display = 'none';
+      document.getElementById('usuario').value = '';
+      document.getElementById('contraseña').value = '';
+    }
+
+    // --- MOSTRAR SECCIONES ---
+    function mostrarSeccion(id){
+      document.querySelectorAll('.seccion').forEach(sec => sec.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    // --- SUBIR IMÁGENES ---
+    document.getElementById('btnSubir').addEventListener('click', async function(){
+    const archivo = document.getElementById('archivo').files[0];
+    const preview = document.getElementById('preview');
+    const galeria = document.getElementById('galeria-contenido');
+
+    if(!archivo){
+        alert("Selecciona una imagen primero.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("archivo", archivo);
+
+    try{
+        // Subir imagen
+        const respuesta = await fetch("subir.php", { method:"POST", body: formData });
+        const resultado = await respuesta.json();
+
+        if(resultado.status === "success"){
+            // Mostrar preview
+            const img = document.createElement('img');
+            img.src = resultado.ruta;
+            preview.innerHTML = '';
+            preview.appendChild(img);
+
+            // Actualizar galería completa
+            const galeriaResp = await fetch("galeria.php");
+            const galeriaHTML = await galeriaResp.text();
+            galeria.innerHTML = galeriaHTML;
+
+        } else {
+            alert("Error: " + resultado.mensaje);
+        }
+    } catch(err){
+        alert("Error al subir imagen.");
+    }
+});
+
+  </script>
+  
+
+</body>
+</html>
+
+
+
+
+
